@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef } from "react";
 
 //CANVAS DEFINITION IMPORT
 import CanvasDef from "./CanvasDef.js";
@@ -24,10 +24,8 @@ import StatsHooks from "./StatsHooks.js";
 const CanvasPage = () => {
     const canvasRef = useRef(null);
 
-    
-
     //CANVAS DEFINITION
-    const {width, height, scaleDef} = CanvasDef();
+    const {width, height } = CanvasDef();
 
     //GRAVITATION DEFINITION
     const {rAmp, gAmp, gravityFun, sinBFun, cosBFun} = GravitationDef();
@@ -36,20 +34,11 @@ const CanvasPage = () => {
     const {up, down, left, right, go, goStop, triskaVis, triskaSmerX, triskaSmerY, fuel, fuelMax, rotate, tah, hlavniTriksaVis} = Controls();
 
     //LEVELS
-    const {rb1, mb1, xb1, yb1, vxb1, vyb1, rb2, mb2, xb2, yb2, rb3, mb3, xb3, yb3, rb4, xb4, yb4, levelIndex, restart, nextlvl} = Levels();
+    const {rb1, xb1, yb1, vxb1, vyb1, rb2, mb2, xb2, yb2, rb3, mb3, xb3, yb3, rb4, xb4, yb4, restart} = Levels();
 
     //INFOTABLE STATES
     const {nextlvlTableVisibility, setNextlvlTableVisibility, restartBtnVisibility, setRestartBtnVisibility, tableText, setTableText} = InfoTableStates();
-    //INFO TABLE FUNCTIONS
-    const tableOnClick = () => {
-        setNextlvlTableVisibility("hidden");
-
-        fuel.current = fuelMax;
-        fuelColor.current = "green";
-        //nextlvl();
-        restart();
-    }
-
+    
     const restartFun = () => {
         setNextlvlTableVisibility("hidden");
         setRestartBtnVisibility("hidden");
@@ -184,21 +173,6 @@ const CanvasPage = () => {
             }
 
 
-            //console.log(fuel.current)
-            //vzdalenosti L22 a ugel Beta23
-            const Lx23 = xb3.current - xb2.current;
-            const Ly23 = yb3.current - yb2.current;
-            const L23check = Math.sqrt(Math.pow(Lx23, 2) + Math.pow(Ly23, 2));
-            let L23;
-
-            //zabranuje zrychleni pres stred
-            if(L23check < rb2.current + rb3.current){
-                L23 = (rb2.current + rb3.current) * rAmp;
-            }else{
-                L23 = L23check * rAmp
-            }
-
-
             //vypocet Gb2
             const Gb2 = gravityFun(mb2.current, L12);
             const Gyb2 = sinB12 * Gb2 * gAmp;
@@ -234,8 +208,6 @@ const CanvasPage = () => {
             context.fill();
             context.restore();
 
-            //console.log("widht: " + width);
-            //console.log( xb2.current);
             //BOD 3
             context.save();
             context.beginPath();
@@ -251,17 +223,14 @@ const CanvasPage = () => {
             //BOD 4 CÍL
             const rNavFun1 = (r) => {
                 rNav1.current = r - 0.2;
-                //rNav2.current = r - 0.2;
                return r;
             }
             const rNavFun2 = (r) => {
                 rNav2.current = r - 0.2;
-                //rNav2.current = r - 0.2;
                return r;
             }
             const rNavFun3 = (r) => {
                 rNav3.current = r - 0.2;
-                //rNav2.current = r - 0.2;
                return r;
             }
 
@@ -359,9 +328,6 @@ const CanvasPage = () => {
             context.stroke();
             context.closePath()
             context.restore();
- 
-
-
 
             //TRASA BODU 1
             for(let i = 1; i < 50; i++){
@@ -374,8 +340,7 @@ const CanvasPage = () => {
                 context.closePath()
                 context.restore();
             }
-            
-            
+        
 
             //FUEL BAR
             context.save();
@@ -395,12 +360,8 @@ const CanvasPage = () => {
             context.fill();
             context.closePath()
             context.restore();
-
-
         };
         render();
-
-
 
         //CANCEL animation request + event listeneres
         return () => {
@@ -408,6 +369,7 @@ const CanvasPage = () => {
             window.removeEventListener("keydown", go);
             window.removeEventListener("keyup", goStop);
         }
+        // eslint-disable-next-line
     }, []);
 
     return (

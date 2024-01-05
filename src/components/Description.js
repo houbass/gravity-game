@@ -14,25 +14,18 @@ import { useState } from "react";
     const showDesc = () => {
 
         setHandleClick(!handleClick);
-    
-        if(handleClick === false){
-            setDescVisibility("visible");
-            setRotateBtn("180deg");
-            setRadius("0 0 0 0");
-            setOpacityHandler("1");
-        }else{
-            setDescVisibility("hidden");
-            setRotateBtn("0deg");
-            setRadius("0 0 20px 0");
-            setOpacityHandler("0");
-        }
-        //console.log("it works")
-
-
-
-        }
-
-        //console.log(handleClick)
+            if(handleClick === false){
+                setDescVisibility("visible");
+                setRotateBtn("180deg");
+                setRadius("0 0 0 0");
+                setOpacityHandler("1");
+            }else{
+                setDescVisibility("hidden");
+                setRotateBtn("0deg");
+                setRadius("0 0 20px 0");
+                setOpacityHandler("0");
+            }
+        };
 
     return (
         <div>
@@ -59,8 +52,6 @@ import { useState } from "react";
                 <button className="description" onClick={showDesc} style={{rotate: rotateBtn}}>V</button>
             </div>
 
-
-
             <div         
             style={{
                 position: "absolute",
@@ -78,20 +69,12 @@ import { useState } from "react";
             }}>
                 <p><strong>"←" "→"</strong> rotate</p> 
                 <p><strong>"spacebar"</strong> main engine</p>
-
                 <p><strong>"w"</strong> forward</p>
                 <p><strong>"s"</strong> back</p>
                 <p><strong>"a"</strong> left</p>
                 <p><strong>"d"</strong> right</p>
             </div>
-
-
         </div>
-
-
-
-
-
     )
  }
 
